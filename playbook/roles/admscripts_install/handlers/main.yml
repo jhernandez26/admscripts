@@ -1,0 +1,10 @@
+---
+# handlers file for admscripts_install
+- name: PATH
+  lineinfile:
+    path: /root/.bashrc
+    line: 'export PATH="/admscripts/scripts:$PATH"'
+  tags:
+  - add
+- debug:
+    msg: "Agregando PATH de admscript"

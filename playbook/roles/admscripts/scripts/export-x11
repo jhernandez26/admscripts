@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+user=$(who -m | awk '{print $1}')
+touch /root/.Xauthority
+export DISPLAY=localhost:10.0
+echo "exporting Xauthority from: $user"
+xauth add $(xauth -f "/home/$user/.Xauthority" list| tail -1)
+

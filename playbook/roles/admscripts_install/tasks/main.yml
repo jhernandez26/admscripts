@@ -1,0 +1,39 @@
+---
+# tasks file for admscripts_install
+- name: Install admscripts
+  block:
+  - debug:
+      msg: "Instalacion de scripts de administrador"
+
+  - name: Envio de admiscripts
+    copy:
+      src: ../../admscripts/admscripts.tar.gz
+      dest: /
+    tags:
+    - send
+  - debug:
+      msg: "Envio de los scripts"
+
+  - name: Descomprimir scripts
+    unarchive:
+      src: /admscripts.tar.gz
+      dest: /
+      owner: root
+      group: sysadmins
+      mode: '0770'
+      remote_src: yes
+    tags:
+    - untar
+  - debug:
+      msg: "Descomprimiendo scripts"
+
+  - name: Borrar comprimido
+    file:
+      path: /admscripts.tar.gz
+      state: absent
+    notify: PATH
+    tags:
+    - delete
+  - debug:
+      msg: "Borrando temporales"
+

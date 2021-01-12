@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+_datos_(){
+ date
+ hostname
+}
+_datos_
+echo "grep --color=always -Ei \"Permitrootlogin\" /etc/ssh/sshd_config"
+grep --color=always -Ei "Permitrootlogin" /etc/ssh/sshd_config
+_datos_
+echo "cat /etc/sudoers.d/app_care"
+cat /etc/sudoers.d/app_care
+_datos_
+id app_care

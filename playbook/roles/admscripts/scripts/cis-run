@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+cd /admscripts/cis/Assessor-CLI/
+bash Assessor-CLI.sh -p "Level 2 - Server" -b benchmarks/CIS_Red_Hat_Enterprise_Linux_7_Benchmark_v2.2.0-xccdf.xml -csv -html
+chmod -R 755 reports/

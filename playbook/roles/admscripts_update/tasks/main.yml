@@ -1,0 +1,33 @@
+---
+# tasks file for admscripts_update
+- name: Actualizacion de admscripts
+  block:
+  - debug:
+      msg: "Se actualizará los admscripts."
+
+  - name: Envio de admscripts
+    copy:
+      src: ../../admscripts/scripts.tar.gz
+      dest: /tmp
+    tags:
+    - send
+  - debug:
+      msg: "Envio de los scripts"
+
+  - name: Descomprimir archivos
+    unarchive:
+      src: /tmp/scripts.tar.gz
+      dest: /tmp
+      remote_src: yes
+    tags:
+    - untar
+  - debug:
+      msg: "Descomprimiendo archivos"
+
+  - name: Change permission and ow
+    shell:
+      cmd: chmod -R  770 /tmp/scripts  && sudo rsync -ar --delete /tmp/scripts /admscripts/ && sudo chown -R root:sysadmins /admscripts && sudo chown -R {{ansible_user}}:sysadmins /tmp/scripts && rm -R /tmp/scripts*
+    tags:
+    - update
+  - debug:
+      msg: "Actualizando scripts"
