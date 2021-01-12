@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+cd /admscripts/cis/Assessor-CLI/
+rm -f reports/*
+

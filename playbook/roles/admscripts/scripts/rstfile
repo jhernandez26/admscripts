@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+check=$(basename $1)
+if [ $(echo $1 | awk -F/ '{print NF}' ) == '1' ];then
+   file=$(pwd)
+   msg="$file/$1"
+   file=$(echo $file | sed 's|\/|:|g')
+   file=$(echo "$file:$1")
+else
+   msg=$1
+   file=($(echo $1 | sed 's|\/|:|g'))
+fi
+#file=$(ls -rtl /admscripts/bkps/ | grep -E "$check" | tail -1 | awk '{print $9}')
+#if [ '' != $file ] && [ $(ls -rtl /admscripts/bkps/ | grep -E ".*_$1_.*" | tail -1 | awk '{print $9}'| grep -c "*.tar.gz") == '0'  ] ; then
+if [ $(ls -l  /admscripts/bkps/ | grep ".*$file.*" | tail -1 | wc -l ) == '1' ] ; then
+   #fileb=$(ls -rtl /admscripts/bkps/ | grep -E ".*_$1_.*" | tail -1 | awk '{print $9}')
+   #file=$(ls -rtl /admscripts/bkps/ | grep -E ".*_$1_.*" | tail -1 | awk '{print $9}'  | awk -F'_' '{file=NF-1;print $file}')
+   file_ori=$(ls -l  /admscripts/bkps/ | grep ".*$file.*" | tail -1|awk '{print $9}')
+   date=$(ls -rtl /admscripts/bkps/ | grep -E ".*$file.*" | tail -1 | awk '{print $9}'  | awk -F':' '{print $NF}')
+   path=$(echo $file | sed -r "s/$date//g")
+   path=$(echo $path | sed  's|:|/|g')
+   #path=$(echo $path | sed -r "s|\_|/|g")
+   cp -pfv /admscripts/bkps/$file_ori $path
+else
+  echo "No se localizo ningun backup para el archivo $msg ."
+fi

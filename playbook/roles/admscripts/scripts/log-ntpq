@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+echo -e "\n"  
+fecha=$(date +'%d/%m/%Y %H:%M:%S')
+echo "Date:$fecha" 
+echo -e  "\nInformacion del ntpq -p\n" 
+/sbin/ntpq -pn
+echo -e  "\nInformacion del ntptime\n"
+/usr/sbin/ntptime
